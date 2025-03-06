@@ -1,0 +1,60 @@
+Zadanie 1: 
+    SELECT CURRENT_DATE;
+        CURRENT_DATE 	
+        2025-03-06
+
+Zadanie 2: 
+    SELECT WEEKDAY('2003-02-07'); 
+        WEEKDAY('2003-02-07') 	
+                            4
+
+Zadanie 3: 
+    SELECT SUBSTRING(CAST(PI() AS CHAR), 6, 1); 
+                                            5
+
+Zadanie 4: 
+    SELECT SUBSTRING(CAST(EXP(1) AS CHAR), 10, 1);
+                                                2
+
+Zadanie 5: 
+    SELECT FLOOR(1 + (RAND() * 6)); 
+                                1
+Zadanie 6: 
+    SELECT nazwa, ilosc FROM produkty;                 
+    nazwa 	ilosc 	
+    laptop 	12
+    plazma48 	3
+    Samsung Galaxy S7 	10
+    tablet 	21
+    smartfon 	13
+    Iphone_6 	10
+    Iphone_6_plus 	2
+    Asus R75VJ 	8
+    laptop asus 	8
+    HUAWEI P9 	13
+    Samsung Galaxy J5 	12
+    laptop dell 	5
+    Apple Iphone 8 	2
+    Apple Watch 3 	7
+    Laptop Lenovo Legion 	3
+    LENOVO Tab M10 	2
+
+Zadanie 7: 
+    SELECT idk as ID, nazwa, miasto, SUBSTRING_INDEX(adres, '. ', -1) as skrocony_adres, telefon from klienci; 
+     ID 	nazwa 	miasto 	skrocony_adres 	telefon 	
+    1 	Astro 	Wrocław 	Cybulskiego 12/2 	0713229563
+    2 	BCA 	Wrocław 	Pomorska 321/12 	0719563372
+    3 	XYZ 	Wrocław 	Borna 5/1 	0713753372
+    4 	ERE 	Warszawa 	Marszałkowska 1 /2 	0221122563
+    5 	OCY 	Łódź 	Piotrkowska 111/1 	0427213372
+    6 	ATest 	Wrocław 	Nozownicza 1 	606753717
+    7 	JAFO 	Toruń 	Wirtualna 	765092123
+    8 	Cesoft 	Wrocław 	Rynek 0 	456789765
+    12 	INNOV 	Warszawa 	Marszałkowska 1 	0223456712
+    24 	Jan Kowalczyk 	Wrocław 	Opolska 119c 	666777888
+    27 	SP201 	Wrocław 	Borna 4 	567321555
+    37 	Młynek i S-ka 	Wrocławice 	Wrocławice 102 	0713903903
+    42 	AMSiO 	Wrocławki 	Wrocławki 321 	0566566567
+
+Zadanie 8: 
+    
