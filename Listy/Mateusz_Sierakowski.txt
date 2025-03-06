@@ -129,3 +129,17 @@ Zadanie 12:
     Cesoft
     SP201
     AMSiO
+
+Zadanie 13: 
+    SELECT idz as ID FROM zamow WHERE DAYOFWEEK(data) IN (2, 6); 
+    ID 	
+    2
+    3
+    21
+    43
+    48
+    50
+    52
+
+Zadanie 14: 
+    
