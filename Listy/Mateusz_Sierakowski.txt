@@ -57,4 +57,38 @@ Zadanie 7:
     42 	AMSiO 	Wrocławki 	Wrocławki 321 	0566566567
 
 Zadanie 8: 
-    
+   SELECT CONCAT( nazwa, ', ', adres, ', ' , miasto, ', ', telefon) FROM klienci;
+    CONCAT( nazwa, ', ', adres, ', ' , miasto, ', ', telefon) 	
+    Astro, Cybulskiego 12/2, Wrocław, 0713229563
+    BCA, ul. Pomorska 321/12, Wrocław, 0719563372
+    XYZ, Pl. Borna 5/1, Wrocław, 0713753372
+    ERE, Marszałkowska 1 /2, Warszawa, 0221122563
+    OCY, ul. Piotrkowska 111/1 , Łódź, 0427213372
+    ATest, Nozownicza 1, Wrocław, 606753717
+    JAFO, Wirtualna , Toruń, 765092123
+    Cesoft, Rynek 0, Wrocław, 456789765
+    INNOV, Marszałkowska 1, Warszawa, 0223456712
+    Jan Kowalczyk, Opolska 119c, Wrocław, 666777888
+    SP201, Borna 4, Wrocław, 567321555
+    Młynek i S-ka, Wrocławice 102, Wrocławice, 0713903...
+    AMSiO, Wrocławki 321, Wrocławki, 0566566567
+
+Zadanie 9: 
+    SELECT nazwa, JSON_OBJECT( 'zlotych', FLOOR(cena), 'groszy', ROUND((cena - FLOOR(cena)) * 100) ) AS cena_json FROM produkty; 
+     nazwa 	cena_json 	
+    laptop 	{"zlotych": 1999, "groszy": 0}
+    plazma48 	{"zlotych": 2199, "groszy": 0}
+    Samsung Galaxy S7 	{"zlotych": 1799, "groszy": 99}
+    tablet 	{"zlotych": 999, "groszy": 0}
+    smartfon 	{"zlotych": 499, "groszy": 0}
+    Iphone_6 	{"zlotych": 1529, "groszy": 0}
+    Iphone_6_plus 	{"zlotych": 2899, "groszy": 0}
+    Asus R75VJ 	{"zlotych": 2009, "groszy": 0}
+    laptop asus 	{"zlotych": 1599, "groszy": 0}
+    HUAWEI P9 	{"zlotych": 1105, "groszy": 0}
+    Samsung Galaxy J5 	{"zlotych": 889, "groszy": 0}
+    laptop dell 	{"zlotych": 2999, "groszy": 0}
+    Apple Iphone 8 	{"zlotych": 3152, "groszy": 0}
+    Apple Watch 3 	{"zlotych": 1590, "groszy": 0}
+    Laptop Lenovo Legion 	{"zlotych": 5999, "groszy": 0}
+    LENOVO Tab M10 	{"zlotych": 699, "groszy": 0}
