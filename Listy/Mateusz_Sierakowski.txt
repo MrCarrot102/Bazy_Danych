@@ -142,4 +142,48 @@ Zadanie 13:
     52
 
 Zadanie 14: 
+    SELECT idz as ID from zamow where hour(data) >= 16;
+    ID 	
+    5
+    21
+    48
+    49
+    50
+    51
+    52
+
+Zadanie 15: 
+    select nazwa from produkty where nazwa not like '%apple%'; 
+    nazwa 	
+    laptop
+    plazma48
+    Samsung Galaxy S7
+    tablet
+    smartfon
+    Iphone_6
+    Iphone_6_plus
+    Asus R75VJ
+    laptop asus
+    HUAWEI P9
+    Samsung Galaxy J5
+    laptop dell
+    Laptop Lenovo Legion
+    LENOVO Tab M10 
+
+Zadanie 16: 
+    select nazwa from klienci where adres like '%Marszałkowska%';
+    nazwa 	
+    ERE
+    INNOV
+
+Zadanie 17: 
+    select nazwa from klienci where length(adres) > 15; 
+    nazwa 	
+    Astro
+    BCA
+    ERE
+    OCY
+    INNOV
+
+Zadanie 18: 
     
