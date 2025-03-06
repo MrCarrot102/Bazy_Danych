@@ -92,3 +92,40 @@ Zadanie 9:
     Apple Watch 3 	{"zlotych": 1590, "groszy": 0}
     Laptop Lenovo Legion 	{"zlotych": 5999, "groszy": 0}
     LENOVO Tab M10 	{"zlotych": 699, "groszy": 0}
+
+Zadanie 10: 
+    SELECT idz AS ID, CASE WHEN DAYOFWEEK(DATE_ADD(data, INTERVAL 1 MONTH)) = 7 THEN DATE_SUB(DATE_ADD(data, INTERVAL 1 MONTH), INTERVAL 1 DAY) WHEN DAYOFWEEK(DATE_ADD(data, INTERVAL 1 MONTH)) = 1 THEN DATE_SUB(DATE_ADD(data, INTERVAL 1 MONTH), INTERVAL 2 DAY) ELSE DATE_ADD(data, INTERVAL 1 MONTH) END AS data_wystawienia_faktury FROM zamow; 
+     ID 	data_wystawienia_faktury 	
+    2 	2017-04-24 12:26:22
+    3 	2017-04-24 12:32:54
+    4 	2017-04-28 12:16:02
+    5 	2017-05-05 16:45:34
+    15 	2017-06-23 11:56:52
+    21 	2017-06-29 16:04:29
+    39 	2017-06-30 11:39:33
+    41 	2017-06-30 11:51:37
+    43 	2017-09-28 11:59:30
+    45 	2017-10-17 12:21:58
+    48 	2017-11-30 18:19:36
+    49 	2017-12-15 17:40:02
+    50 	2017-11-02 17:41:12
+    51 	2017-07-24 17:47:22
+    52 	2017-06-05 17:48:40
+
+Zadanie 11: 
+    SELECT nazwa FROM klienci WHERE miasto != 'Wrocław'; 
+    nazwa 	
+    ERE
+    OCY
+    JAFO
+    INNOV
+    Młynek i S-ka
+    AMSiO
+
+Zadanie 12: 
+    SELECT nazwa FROM klienci where left(nazwa, length(nazwa) /2 ) like "%s%"; 
+    nazwa 	
+    Astro
+    Cesoft
+    SP201
+    AMSiO
