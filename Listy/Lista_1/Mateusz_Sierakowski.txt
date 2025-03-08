@@ -186,4 +186,29 @@ Zadanie 17:
     INNOV
 
 Zadanie 18: 
-    
+    select nazwa, case when cena > 1500 then ceil((cena / 12) * 1.1) else 'brak rat' end as rata from produkty; 
+    nazwa   rata 	
+    laptop 	184
+    plazma48 	202
+    Samsung Galaxy S7 	165
+    tablet 	brak rat
+    smartfon 	brak rat
+    Iphone_6 	141
+    Iphone_6_plus 	266
+    Asus R75VJ 	185
+    laptop asus 	147
+    HUAWEI P9 	brak rat
+    Samsung Galaxy J5 	brak rat
+    laptop dell 	275
+    Apple Iphone 8 	289
+    Apple Watch 3 	146
+    Laptop Lenovo Legion 	550
+    LENOVO Tab M10 	brak rat
+
+Zadanie 19: 
+    select * from produkty; // polecenie 1 
+    select idp from produkty order by ilosc desc limit 1;  // polecenie 2 
+    select * from detal_zamow where p_id = (select idp from produkty order by ilosc desc limit 1); // polecenie 3
+    select count(DISTINCT z_id) as liczba_zamowien from detal_zamow where p_id=(SELECT idp from produkty ORDER by ilosc desc limit 1); // polecenie 4
+    liczba_zamowien 	
+                  4 // ostateczny rezultat po 4 poleceniu 
