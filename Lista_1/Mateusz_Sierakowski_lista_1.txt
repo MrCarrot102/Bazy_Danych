@@ -1,0 +1,59 @@
+Zadanie 1: 
+    SELECT CURRENT_DATE;
+
+Zadanie 2: 
+    SELECT WEEKDAY('2003-02-07'); 
+
+Zadanie 3: 
+    select floor((PI()*POWER(10,10)) % 10); 
+                                            
+Zadanie 4: 
+    select floor((EXP(1) * POWER(10, 8)) % 10); 
+                                                
+Zadanie 5: 
+    SELECT FLOOR(1 + (RAND() * 6)); 
+                                
+Zadanie 6: 
+    SELECT nazwa, ilosc FROM produkty;                 
+
+Zadanie 7: 
+    SELECT idk as ID, nazwa, miasto, SUBSTRING_INDEX(adres, '. ', -1) as skrocony_adres, telefon from klienci; 
+
+Zadanie 8: 
+   SELECT CONCAT( nazwa, ', ', adres, ', ' , miasto, ', ', telefon) FROM klienci;
+
+Zadanie 9: 
+    SELECT nazwa, JSON_OBJECT( 'zlotych', FLOOR(cena), 'groszy', ROUND((cena - FLOOR(cena)) * 100) ) AS cena_json FROM produkty; 
+
+Zadanie 10: 
+    SELECT idz AS ID, CASE WHEN DAYOFWEEK(DATE_ADD(data, INTERVAL 1 MONTH)) = 7 THEN DATE_SUB(DATE_ADD(data, INTERVAL 1 MONTH), INTERVAL 1 DAY) WHEN DAYOFWEEK(DATE_ADD(data, INTERVAL 1 MONTH)) = 1 THEN DATE_SUB(DATE_ADD(data, INTERVAL 1 MONTH), INTERVAL 2 DAY) ELSE DATE_ADD(data, INTERVAL 1 MONTH) END AS data_wystawienia_faktury FROM zamow; 
+
+Zadanie 11: 
+    SELECT nazwa FROM klienci WHERE miasto != 'Wrocław'; 
+
+Zadanie 12: 
+    SELECT nazwa FROM klienci where left(nazwa, length(nazwa) /2 ) like "%s%"; 
+
+Zadanie 13: 
+    SELECT idz as ID FROM zamow WHERE DAYOFWEEK(data) IN (2, 6); 
+
+Zadanie 14: 
+    SELECT idz as ID from zamow where hour(data) >= 16;
+
+Zadanie 15: 
+    select nazwa from produkty where nazwa not like '%apple%'; 
+
+Zadanie 16: 
+    select nazwa from klienci where adres like '%Marszałkowska%';
+
+Zadanie 17: 
+    select nazwa from klienci where length(adres) > 15; 
+
+Zadanie 18: 
+    select nazwa, case when cena > 1500 then ceil((cena / 12) * 1.1) else 'brak rat' end as rata from produkty; 
+
+Zadanie 19: 
+    select * from produkty; // polecenie 1 
+    select idp from produkty order by ilosc desc limit 1;  // polecenie 2 
+    select * from detal_zamow where p_id = (select idp from produkty order by ilosc desc limit 1); // polecenie 3
+    select count(DISTINCT z_id) as liczba_zamowien from detal_zamow where p_id=(SELECT idp from produkty ORDER by ilosc desc limit 1); // polecenie 4
