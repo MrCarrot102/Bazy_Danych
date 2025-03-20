@@ -9,201 +9,203 @@ Zadanie 2:
                             4
 
 Zadanie 3: 
-    SELECT SUBSTRING(CAST(PI() AS CHAR), 6, 1); 
-                                            5
+    select floor((PI()*POWER(10,10)) % 10); 
+                                        5
 
 Zadanie 4: 
-    SELECT SUBSTRING(CAST(EXP(1) AS CHAR), 10, 1);
-                                                2
+    select floor((EXP(1) * POWER(10, 8)) % 10); 
+                                            2
 
 Zadanie 5: 
     SELECT FLOOR(1 + (RAND() * 6)); 
                                 1
 Zadanie 6: 
     SELECT nazwa, ilosc FROM produkty;                 
-    nazwa 	ilosc 	
-    laptop 	12
-    plazma48 	3
-    Samsung Galaxy S7 	10
-    tablet 	21
-    smartfon 	13
-    Iphone_6 	10
-    Iphone_6_plus 	2
-    Asus R75VJ 	8
-    laptop asus 	8
-    HUAWEI P9 	13
-    Samsung Galaxy J5 	12
-    laptop dell 	5
-    Apple Iphone 8 	2
-    Apple Watch 3 	7
-    Laptop Lenovo Legion 	3
-    LENOVO Tab M10 	2
-
+         +----------------------+--------------+
+        | nazwa                | ilosc * cena |
+        +----------------------+--------------+
+        | laptop               |     23988.00 |
+        | plazma48             |      6597.00 |
+        | Samsung Galaxy S7    |     17999.90 |
+        | tablet               |     20979.00 |
+        | smartfon             |      6487.00 |
+        | Iphone_6             |     15290.00 |
+        | Iphone_6_plus        |      5798.00 |
+        | Asus R75VJ           |     16072.00 |
+        | laptop asus          |     12792.00 |
+        | HUAWEI P9            |     14365.00 |
+        | Samsung Galaxy J5    |     10668.00 |
+        | laptop dell          |     14995.00 |
+        | Apple Iphone 8       |      6304.00 |
+        | Apple Watch 3        |     11130.00 |
+        | Laptop Lenovo Legion |     17997.00 |
+        | LENOVO Tab M10       |      1398.00 |
+        +----------------------+--------------+
 Zadanie 7: 
     SELECT idk as ID, nazwa, miasto, SUBSTRING_INDEX(adres, '. ', -1) as skrocony_adres, telefon from klienci; 
-     ID 	nazwa 	miasto 	skrocony_adres 	telefon 	
-    1 	Astro 	Wrocław 	Cybulskiego 12/2 	0713229563
-    2 	BCA 	Wrocław 	Pomorska 321/12 	0719563372
-    3 	XYZ 	Wrocław 	Borna 5/1 	0713753372
-    4 	ERE 	Warszawa 	Marszałkowska 1 /2 	0221122563
-    5 	OCY 	Łódź 	Piotrkowska 111/1 	0427213372
-    6 	ATest 	Wrocław 	Nozownicza 1 	606753717
-    7 	JAFO 	Toruń 	Wirtualna 	765092123
-    8 	Cesoft 	Wrocław 	Rynek 0 	456789765
-    12 	INNOV 	Warszawa 	Marszałkowska 1 	0223456712
-    24 	Jan Kowalczyk 	Wrocław 	Opolska 119c 	666777888
-    27 	SP201 	Wrocław 	Borna 4 	567321555
-    37 	Młynek i S-ka 	Wrocławice 	Wrocławice 102 	0713903903
-    42 	AMSiO 	Wrocławki 	Wrocławki 321 	0566566567
+        ID 	nazwa 	miasto 	skrocony_adres 	telefon 	
+        1 	Astro 	Wrocław 	Cybulskiego 12/2 	0713229563
+        2 	BCA 	Wrocław 	Pomorska 321/12 	0719563372
+        3 	XYZ 	Wrocław 	Borna 5/1 	0713753372
+        4 	ERE 	Warszawa 	Marszałkowska 1 /2 	0221122563
+        5 	OCY 	Łódź 	Piotrkowska 111/1 	0427213372
+        6 	ATest 	Wrocław 	Nozownicza 1 	606753717
+        7 	JAFO 	Toruń 	Wirtualna 	765092123
+        8 	Cesoft 	Wrocław 	Rynek 0 	456789765
+        12 	INNOV 	Warszawa 	Marszałkowska 1 	0223456712
+        24 	Jan Kowalczyk 	Wrocław 	Opolska 119c 	666777888
+        27 	SP201 	Wrocław 	Borna 4 	567321555
+        37 	Młynek i S-ka 	Wrocławice 	Wrocławice 102 	0713903903
+        42 	AMSiO 	Wrocławki 	Wrocławki 321 	0566566567
 
 Zadanie 8: 
    SELECT CONCAT( nazwa, ', ', adres, ', ' , miasto, ', ', telefon) FROM klienci;
     CONCAT( nazwa, ', ', adres, ', ' , miasto, ', ', telefon) 	
-    Astro, Cybulskiego 12/2, Wrocław, 0713229563
-    BCA, ul. Pomorska 321/12, Wrocław, 0719563372
-    XYZ, Pl. Borna 5/1, Wrocław, 0713753372
-    ERE, Marszałkowska 1 /2, Warszawa, 0221122563
-    OCY, ul. Piotrkowska 111/1 , Łódź, 0427213372
-    ATest, Nozownicza 1, Wrocław, 606753717
-    JAFO, Wirtualna , Toruń, 765092123
-    Cesoft, Rynek 0, Wrocław, 456789765
-    INNOV, Marszałkowska 1, Warszawa, 0223456712
-    Jan Kowalczyk, Opolska 119c, Wrocław, 666777888
-    SP201, Borna 4, Wrocław, 567321555
-    Młynek i S-ka, Wrocławice 102, Wrocławice, 0713903...
-    AMSiO, Wrocławki 321, Wrocławki, 0566566567
+       Astro, Cybulskiego 12/2, Wrocław, 0713229563
+       BCA, ul. Pomorska 321/12, Wrocław, 0719563372
+       XYZ, Pl. Borna 5/1, Wrocław, 0713753372
+       ERE, Marszałkowska 1 /2, Warszawa, 0221122563
+       OCY, ul. Piotrkowska 111/1 , Łódź, 0427213372
+       ATest, Nozownicza 1, Wrocław, 606753717
+       JAFO, Wirtualna , Toruń, 765092123
+       Cesoft, Rynek 0, Wrocław, 456789765
+       INNOV, Marszałkowska 1, Warszawa, 0223456712
+       Jan Kowalczyk, Opolska 119c, Wrocław, 666777888
+       SP201, Borna 4, Wrocław, 567321555
+       Młynek i S-ka, Wrocławice 102, Wrocławice, 0713903...
+       AMSiO, Wrocławki 321, Wrocławki, 0566566567
 
 Zadanie 9: 
     SELECT nazwa, JSON_OBJECT( 'zlotych', FLOOR(cena), 'groszy', ROUND((cena - FLOOR(cena)) * 100) ) AS cena_json FROM produkty; 
-     nazwa 	cena_json 	
-    laptop 	{"zlotych": 1999, "groszy": 0}
-    plazma48 	{"zlotych": 2199, "groszy": 0}
-    Samsung Galaxy S7 	{"zlotych": 1799, "groszy": 99}
-    tablet 	{"zlotych": 999, "groszy": 0}
-    smartfon 	{"zlotych": 499, "groszy": 0}
-    Iphone_6 	{"zlotych": 1529, "groszy": 0}
-    Iphone_6_plus 	{"zlotych": 2899, "groszy": 0}
-    Asus R75VJ 	{"zlotych": 2009, "groszy": 0}
-    laptop asus 	{"zlotych": 1599, "groszy": 0}
-    HUAWEI P9 	{"zlotych": 1105, "groszy": 0}
-    Samsung Galaxy J5 	{"zlotych": 889, "groszy": 0}
-    laptop dell 	{"zlotych": 2999, "groszy": 0}
-    Apple Iphone 8 	{"zlotych": 3152, "groszy": 0}
-    Apple Watch 3 	{"zlotych": 1590, "groszy": 0}
-    Laptop Lenovo Legion 	{"zlotych": 5999, "groszy": 0}
-    LENOVO Tab M10 	{"zlotych": 699, "groszy": 0}
+        nazwa 	cena_json 	
+        laptop 	{"zlotych": 1999, "groszy": 0}
+        plazma48 	{"zlotych": 2199, "groszy": 0}
+        Samsung Galaxy S7 	{"zlotych": 1799, "groszy": 99}
+        tablet 	{"zlotych": 999, "groszy": 0}
+        smartfon 	{"zlotych": 499, "groszy": 0}
+        Iphone_6 	{"zlotych": 1529, "groszy": 0}
+        Iphone_6_plus 	{"zlotych": 2899, "groszy": 0}
+        Asus R75VJ 	{"zlotych": 2009, "groszy": 0}
+        laptop asus 	{"zlotych": 1599, "groszy": 0}
+        HUAWEI P9 	{"zlotych": 1105, "groszy": 0}
+        Samsung Galaxy J5 	{"zlotych": 889, "groszy": 0}
+        laptop dell 	{"zlotych": 2999, "groszy": 0}
+        Apple Iphone 8 	{"zlotych": 3152, "groszy": 0}
+        Apple Watch 3 	{"zlotych": 1590, "groszy": 0}
+        Laptop Lenovo Legion 	{"zlotych": 5999, "groszy": 0}
+        LENOVO Tab M10 	{"zlotych": 699, "groszy": 0}
 
 Zadanie 10: 
     SELECT idz AS ID, CASE WHEN DAYOFWEEK(DATE_ADD(data, INTERVAL 1 MONTH)) = 7 THEN DATE_SUB(DATE_ADD(data, INTERVAL 1 MONTH), INTERVAL 1 DAY) WHEN DAYOFWEEK(DATE_ADD(data, INTERVAL 1 MONTH)) = 1 THEN DATE_SUB(DATE_ADD(data, INTERVAL 1 MONTH), INTERVAL 2 DAY) ELSE DATE_ADD(data, INTERVAL 1 MONTH) END AS data_wystawienia_faktury FROM zamow; 
-     ID 	data_wystawienia_faktury 	
-    2 	2017-04-24 12:26:22
-    3 	2017-04-24 12:32:54
-    4 	2017-04-28 12:16:02
-    5 	2017-05-05 16:45:34
-    15 	2017-06-23 11:56:52
-    21 	2017-06-29 16:04:29
-    39 	2017-06-30 11:39:33
-    41 	2017-06-30 11:51:37
-    43 	2017-09-28 11:59:30
-    45 	2017-10-17 12:21:58
-    48 	2017-11-30 18:19:36
-    49 	2017-12-15 17:40:02
-    50 	2017-11-02 17:41:12
-    51 	2017-07-24 17:47:22
-    52 	2017-06-05 17:48:40
+        ID 	data_wystawienia_faktury 	
+        2 	2017-04-24 12:26:22
+        3 	2017-04-24 12:32:54
+        4 	2017-04-28 12:16:02
+        5 	2017-05-05 16:45:34
+        15 	2017-06-23 11:56:52
+        21 	2017-06-29 16:04:29
+        39 	2017-06-30 11:39:33
+        41 	2017-06-30 11:51:37
+        43 	2017-09-28 11:59:30
+        45 	2017-10-17 12:21:58
+        48 	2017-11-30 18:19:36
+        49 	2017-12-15 17:40:02
+        50 	2017-11-02 17:41:12
+        51 	2017-07-24 17:47:22
+        52 	2017-06-05 17:48:40
 
 Zadanie 11: 
     SELECT nazwa FROM klienci WHERE miasto != 'Wrocław'; 
-    nazwa 	
-    ERE
-    OCY
-    JAFO
-    INNOV
-    Młynek i S-ka
-    AMSiO
+        nazwa 	
+        ERE
+        OCY
+        JAFO
+        INNOV
+        Młynek i S-ka
+        AMSiO
 
 Zadanie 12: 
     SELECT nazwa FROM klienci where left(nazwa, length(nazwa) /2 ) like "%s%"; 
-    nazwa 	
-    Astro
-    Cesoft
-    SP201
-    AMSiO
+        nazwa 	
+        Astro
+        Cesoft
+        SP201
+        AMSiO
 
 Zadanie 13: 
     SELECT idz as ID FROM zamow WHERE DAYOFWEEK(data) IN (2, 6); 
-    ID 	
-    2
-    3
-    21
-    43
-    48
-    50
-    52
+        ID 	
+        2
+        3
+        21
+        43
+        48
+        50
+        52
 
 Zadanie 14: 
     SELECT idz as ID from zamow where hour(data) >= 16;
-    ID 	
-    5
-    21
-    48
-    49
-    50
-    51
-    52
+        ID 	
+        5
+        21
+        48
+        49
+        50
+        51
+        52
 
 Zadanie 15: 
     select nazwa from produkty where nazwa not like '%apple%'; 
-    nazwa 	
-    laptop
-    plazma48
-    Samsung Galaxy S7
-    tablet
-    smartfon
-    Iphone_6
-    Iphone_6_plus
-    Asus R75VJ
-    laptop asus
-    HUAWEI P9
-    Samsung Galaxy J5
-    laptop dell
-    Laptop Lenovo Legion
-    LENOVO Tab M10 
+        nazwa 	
+        laptop
+        plazma48
+        Samsung Galaxy S7
+        tablet
+        smartfon
+        Iphone_6
+        Iphone_6_plus
+        Asus R75VJ
+        laptop asus
+        HUAWEI P9
+        Samsung Galaxy J5
+        laptop dell
+        Laptop Lenovo Legion
+        LENOVO Tab M10 
 
 Zadanie 16: 
     select nazwa from klienci where adres like '%Marszałkowska%';
-    nazwa 	
-    ERE
-    INNOV
+        nazwa 	
+        ERE
+        INNOV
 
 Zadanie 17: 
     select nazwa from klienci where length(adres) > 15; 
-    nazwa 	
-    Astro
-    BCA
-    ERE
-    OCY
-    INNOV
+        nazwa 	
+        Astro
+        BCA
+        ERE
+        OCY
+        INNOV
 
 Zadanie 18: 
     select nazwa, case when cena > 1500 then ceil((cena / 12) * 1.1) else 'brak rat' end as rata from produkty; 
-    nazwa   rata 	
-    laptop 	184
-    plazma48 	202
-    Samsung Galaxy S7 	165
-    tablet 	brak rat
-    smartfon 	brak rat
-    Iphone_6 	141
-    Iphone_6_plus 	266
-    Asus R75VJ 	185
-    laptop asus 	147
-    HUAWEI P9 	brak rat
-    Samsung Galaxy J5 	brak rat
-    laptop dell 	275
-    Apple Iphone 8 	289
-    Apple Watch 3 	146
-    Laptop Lenovo Legion 	550
-    LENOVO Tab M10 	brak rat
+        nazwa   rata 	
+        laptop 	184
+        plazma48 	202
+        Samsung Galaxy S7 	165
+        tablet 	brak rat
+        smartfon 	brak rat
+        Iphone_6 	141
+        Iphone_6_plus 	266
+        Asus R75VJ 	185
+        laptop asus 	147
+        HUAWEI P9 	brak rat
+        Samsung Galaxy J5 	brak rat
+        laptop dell 	275
+        Apple Iphone 8 	289
+        Apple Watch 3 	146
+        Laptop Lenovo Legion 	550
+        LENOVO Tab M10 	brak rat
 
 Zadanie 19: 
     select * from produkty; // polecenie 1 

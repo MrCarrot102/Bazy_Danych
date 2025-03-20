@@ -14,7 +14,7 @@ Zadanie 5:
     SELECT FLOOR(1 + (RAND() * 6)); 
                                 
 Zadanie 6: 
-    SELECT nazwa, ilosc FROM produkty;                 
+    SELECT nazwa, ilosc * cena FROM produkty;                 
 
 Zadanie 7: 
     SELECT idk as ID, nazwa, miasto, SUBSTRING_INDEX(adres, '. ', -1) as skrocony_adres, telefon from klienci; 
