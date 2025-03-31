@@ -1,5 +1,5 @@
 Zadanie 1: 
-    SELECT CURRENT_DATE;
+    SELECT dayofyear(CURRENT_DATE);
         CURRENT_DATE 	
         2025-03-06
 
@@ -65,7 +65,7 @@ Zadanie 8:
        BCA, ul. Pomorska 321/12, Wrocław, 0719563372
        XYZ, Pl. Borna 5/1, Wrocław, 0713753372
        ERE, Marszałkowska 1 /2, Warszawa, 0221122563
-       OCY, ul. Piotrkowska 111/1 , Łódź, 0427213372
+       OCY, ul. Piotrkowsk a 111/1 , Łódź, 0427213372
        ATest, Nozownicza 1, Wrocław, 606753717
        JAFO, Wirtualna , Toruń, 765092123
        Cesoft, Rynek 0, Wrocław, 456789765
@@ -96,7 +96,9 @@ Zadanie 9:
         LENOVO Tab M10 	{"zlotych": 699, "groszy": 0}
 
 Zadanie 10: 
-    SELECT idz AS ID, CASE WHEN DAYOFWEEK(DATE_ADD(data, INTERVAL 1 MONTH)) = 7 THEN DATE_SUB(DATE_ADD(data, INTERVAL 1 MONTH), INTERVAL 1 DAY) WHEN DAYOFWEEK(DATE_ADD(data, INTERVAL 1 MONTH)) = 1 THEN DATE_SUB(DATE_ADD(data, INTERVAL 1 MONTH), INTERVAL 2 DAY) ELSE DATE_ADD(data, INTERVAL 1 MONTH) END AS data_wystawienia_faktury FROM zamow; 
+    SELECT idz AS ID, CASE WHEN DAYOFWEEK(DATE_ADD(data, INTERVAL 1 MONTH)) = 7 THEN DATE_SUB(DATE_ADD(data, INTERVAL 1 MONTH), INTERVAL 1 DAY) 
+    WHEN DAYOFWEEK(DATE_ADD(data, INTERVAL 1 MONTH)) = 1 THEN DATE_SUB(DATE_ADD(data, INTERVAL 1 MONTH), INTERVAL 2 DAY) 
+    ELSE DATE_ADD(data, INTERVAL 1 MONTH) END AS data_wystawienia_faktury FROM zamow; 
         ID 	data_wystawienia_faktury 	
         2 	2017-04-24 12:26:22
         3 	2017-04-24 12:32:54
@@ -179,7 +181,7 @@ Zadanie 16:
         INNOV
 
 Zadanie 17: 
-    select nazwa from klienci where length(adres) > 15; 
+    select miasto, from klienci where length(adres) > 15; 
         nazwa 	
         Astro
         BCA

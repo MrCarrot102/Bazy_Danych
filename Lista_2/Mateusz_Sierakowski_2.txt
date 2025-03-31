@@ -1,34 +1,32 @@
-Lista 2
-
 Zadanie 1: 
     select * from klienci, produkty;
-     idk 	nazwa 	miasto 	adres 	telefon 	idp 	nazwa 	cena 	ilosc 	
-1 	Astro 	Wrocław 	Cybulskiego 12/2 	0713229563 	1 	laptop 	1999.00 	12
-2 	BCA 	Wrocław 	ul. Pomorska 321/12 	0719563372 	1 	laptop 	1999.00 	12
-3 	XYZ 	Wrocław 	Pl. Borna 5/1 	0713753372 	1 	laptop 	1999.00 	12
-4 	ERE 	Warszawa 	Marszałkowska 1 /2 	0221122563 	1 	laptop 	1999.00 	12
-5 	OCY 	Łódź 	ul. Piotrkowska 111/1 	0427213372 	1 	laptop 	1999.00 	12
-6 	ATest 	Wrocław 	Nozownicza 1 	606753717 	1 	laptop 	1999.00 	12
-7 	JAFO 	Toruń 	Wirtualna 	765092123 	1 	laptop 	1999.00 	12
-8 	Cesoft 	Wrocław 	Rynek 0 	456789765 	1 	laptop 	1999.00 	12
-12 	INNOV 	Warszawa 	Marszałkowska 1 	0223456712 	1 	laptop 	1999.00 	12
-24 	Jan Kowalczyk 	Wrocław 	Opolska 119c 	666777888 	1 	laptop 	1999.00 	12
-27 	SP201 	Wrocław 	Borna 4 	567321555 	1 	laptop 	1999.00 	12
-37 	Młynek i S-ka 	Wrocławice 	Wrocławice 102 	0713903903 	1 	laptop 	1999.00 	12
-42 	AMSiO 	Wrocławki 	Wrocławki 321 	0566566567 	1 	laptop 	1999.00 	12
-1 	Astro 	Wrocław 	Cybulskiego 12/2 	0713229563 	2 	plazma48 	2199.00 	3
-2 	BCA 	Wrocław 	ul. Pomorska 321/12 	0719563372 	2 	plazma48 	2199.00 	3
-3 	XYZ 	Wrocław 	Pl. Borna 5/1 	0713753372 	2 	plazma48 	2199.00 	3
-4 	ERE 	Warszawa 	Marszałkowska 1 /2 	0221122563 	2 	plazma48 	2199.00 	3
-5 	OCY 	Łódź 	ul. Piotrkowska 111/1 	0427213372 	2 	plazma48 	2199.00 	3
-6 	ATest 	Wrocław 	Nozownicza 1 	606753717 	2 	plazma48 	2199.00 	3
-7 	JAFO 	Toruń 	Wirtualna 	765092123 	2 	plazma48 	2199.00 	3
-8 	Cesoft 	Wrocław 	Rynek 0 	456789765 	2 	plazma48 	2199.00 	3
-12 	INNOV 	Warszawa 	Marszałkowska 1 	0223456712 	2 	plazma48 	2199.00 	3
-24 	Jan Kowalczyk 	Wrocław 	Opolska 119c 	666777888 	2 	plazma48 	2199.00 	3
-27 	SP201 	Wrocław 	Borna 4 	567321555 	2 	plazma48 	2199.00 	3
-37 	Młynek i S-ka 	Wrocławice 	Wrocławice 102 	0713903903 	2 	plazma48 	2199.00 	3
-
+        idk 	nazwa 	miasto 	adres 	telefon 	idp 	nazwa 	cena 	ilosc 	
+        1 	Astro 	Wrocław 	Cybulskiego 12/2 	0713229563 	1 	laptop 	1999.00 	12
+        2 	BCA 	Wrocław 	ul. Pomorska 321/12 	0719563372 	1 	laptop 	1999.00 	12
+        3 	XYZ 	Wrocław 	Pl. Borna 5/1 	0713753372 	1 	laptop 	1999.00 	12
+        4 	ERE 	Warszawa 	Marszałkowska 1 /2 	0221122563 	1 	laptop 	1999.00 	12
+        5 	OCY 	Łódź 	ul. Piotrkowska 111/1 	0427213372 	1 	laptop 	1999.00 	12
+        6 	ATest 	Wrocław 	Nozownicza 1 	606753717 	1 	laptop 	1999.00 	12
+        7 	JAFO 	Toruń 	Wirtualna 	765092123 	1 	laptop 	1999.00 	12
+        8 	Cesoft 	Wrocław 	Rynek 0 	456789765 	1 	laptop 	1999.00 	12
+        12 	INNOV 	Warszawa 	Marszałkowska 1 	0223456712 	1 	laptop 	1999.00 	12
+        24 	Jan Kowalczyk 	Wrocław 	Opolska 119c 	666777888 	1 	laptop 	1999.00 	12
+        27 	SP201 	Wrocław 	Borna 4 	567321555 	1 	laptop 	1999.00 	12
+        37 	Młynek i S-ka 	Wrocławice 	Wrocławice 102 	0713903903 	1 	laptop 	1999.00 	12
+        42 	AMSiO 	Wrocławki 	Wrocławki 321 	0566566567 	1 	laptop 	1999.00 	12
+        1 	Astro 	Wrocław 	Cybulskiego 12/2 	0713229563 	2 	plazma48 	2199.00 	3
+        2 	BCA 	Wrocław 	ul. Pomorska 321/12 	0719563372 	2 	plazma48 	2199.00 	3
+        3 	XYZ 	Wrocław 	Pl. Borna 5/1 	0713753372 	2 	plazma48 	2199.00 	3
+        4 	ERE 	Warszawa 	Marszałkowska 1 /2 	0221122563 	2 	plazma48 	2199.00 	3
+        5 	OCY 	Łódź 	ul. Piotrkowska 111/1 	0427213372 	2 	plazma48 	2199.00 	3
+        6 	ATest 	Wrocław 	Nozownicza 1 	606753717 	2 	plazma48 	2199.00 	3
+        7 	JAFO 	Toruń 	Wirtualna 	765092123 	2 	plazma48 	2199.00 	3
+        8 	Cesoft 	Wrocław 	Rynek 0 	456789765 	2 	plazma48 	2199.00 	3
+        12 	INNOV 	Warszawa 	Marszałkowska 1 	0223456712 	2 	plazma48 	2199.00 	3
+        24 	Jan Kowalczyk 	Wrocław 	Opolska 119c 	666777888 	2 	plazma48 	2199.00 	3
+        27 	SP201 	Wrocław 	Borna 4 	567321555 	2 	plazma48 	2199.00 	3
+        37 	Młynek i S-ka 	Wrocławice 	Wrocławice 102 	0713903903 	2 	plazma48 	2199.00 	3
+    
 Zadanie 2: 
     select zamow.*, detal_zamow.sztuk from zamow join detal_zamow on zamow.idz = detal_zamow.z_id; 
      idz 	k_id 	data 	sztuk 	
@@ -107,5 +105,39 @@ Zadanie 4:
     45 	998.00
 
 Zadanie 5: 
-    
+    SELECT produkty.nazwa as produkt, SUM(sztuk) as zamow_po_poludniu FROM detal_zamow
+    JOIN produkty ON detal_zamow.p_id = produkty.idp
+    JOIN zamow    ON detal_zamow.z_id = zamow.idz
+    WHERE HOUR(zamow.data) >= 12
+    GROUP BY produkt;
+        +-------------------+--------------+
+        | produkt           | zamow_po_po  |
+        +-------------------+--------------+
+        | Apple Iphone 8    |            1 |
+        | Apple Watch 3     |            2 |
+        | Asus R75VJ        |            1 |
+        | HUAWEI P9         |            5 |
+        | Iphone_6          |            5 |
+        | Iphone_6_plus     |            1 |
+        | laptop            |            8 |
+        | laptop asus       |            3 |
+        | laptop dell       |            3 |
+        | Samsung Galaxy J5 |            2 |
+        | Samsung Galaxy S7 |            5 |
+        | smartfon          |            2 |
+        | tablet            |           11 |
+        +-------------------+--------------+
 
+Zadanie 6:
+    SELECT MONTHNAME(data), miasto, nazwa from zamow join klienci on zamow.k_id = klienci.idk where miasto != "Wrocław"; 
+    +-----------------+----------+-------+
+    | MONTHNAME(data) | miasto   | nazwa |
+    +-----------------+----------+-------+
+    | March           | Warszawa | ERE   |
+    | April           | Warszawa | ERE   |
+    | May             | Toruń    | JAFO  |
+    | May             | Warszawa | ERE   |
+    | September       | Toruń    | JAFO  |
+    | November        | Łódź     | OCY   |
+    | October         | Warszawa | INNOV |
+    +-----------------+----------+-------+
