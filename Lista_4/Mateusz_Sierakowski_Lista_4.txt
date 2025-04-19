@@ -78,4 +78,153 @@ Zadanie 7:
         Iphone_6 	7645.00
 
 Zadanie 8: 
-    
+    select k.nazwa as klient, sum(dz.sztuk) as laczna_liczba_sztuk_drogich_produktow from klienci k join zamow z on k.idk = z.k_id join detal_zamow dz on z.idz = dz.z_id join produkty p on dz.p_id = p.idp where p.cena > 1800 group by k.idk, k.nazwa having sum(dz.sztuk) > 1 order by laczna_liczba_sztuk_drogich_produktow DESC; 
+             klient 	laczna_liczba_sztuk_drogich_produktow Descending 1 	
+                XYZ 	5
+                ERE 	3
+                INNOV 	3
+                Jan Kowalczyk 	2
+
+Zadanie 9: 
+    select p.nazwa as produkt, avg(dz.sztuk) as srednia_liczba_szutk, sum(case when dayname(z.data) = "Friday" then 1 else 0 end) as liczba_piatkowych_zamowien from produkty p join detal_zamow dz on p.idp = dz.p_id join zamow z on dz.z_id = z.idz group by p.idp, p.nazwa having sum(case when dayname(z.data) = "Friday" then 1 else 0 end) > 0 order by p.nazwa; 
+     produkt 	srednia_liczba_szutk 	liczba_piatkowych_zamowien 	
+        Apple Watch 3 	1.0000 	1
+        laptop 	2.2000 	2
+        laptop dell 	1.5000 	1
+        Samsung Galaxy J5 	2.5000 	1
+        Samsung Galaxy S7 	2.5000 	2
+
+Zadanie 10: 
+    select k.nazwa as klient, ifnull(count(z.idz), 0) as liczba_zamowien from klienci k left join zamow z on k.idk = z.k_id group by k.idk, k.nazwa order by liczba_zamowien desc, k.nazwa; 
+         klient 	liczba_zamowien Descending 1 	
+            ERE 	3
+            BCA 	2
+            Cesoft 	2
+            JAFO 	2
+            Astro 	1
+            INNOV 	1
+            Jan Kowalczyk 	1
+            OCY 	1
+            SP201 	1
+            XYZ 	1
+            AMSiO 	0
+            ATest 	0
+            Młynek i S-ka 	0
+
+Zadanie 11: 
+    select p.nazwa as produkt, ifnull(sum(dz.sztuk), 0) as laczna_liczba_sztuk from produkty p left join detal_zamow dz on p.idp = dz.p_id group by p.idp, p.nazwa order by laczna_liczba_sztuk desc; 
+     produkt 	laczna_liczba_sztuk Descending 1 	
+        tablet 	13
+        laptop 	11
+        Samsung Galaxy J5 	5
+        Samsung Galaxy S7 	5
+        HUAWEI P9 	5
+        Iphone_6 	5
+        smartfon 	4
+        laptop asus 	3
+        laptop dell 	3
+        Iphone_6_plus 	2
+        Apple Watch 3 	2
+        Asus R75VJ 	1
+        Apple Iphone 8 	1
+        plazma48 	0
+        LENOVO Tab M10 	0
+        Laptop Lenovo Legion 	0
+
+Zadanie 12: 
+    select k.miasto, ifnull(sum(dz.sztuk), 0) as laczna_liczba_sztuk from klienci k left join zamow z on k.idk = z.k_id left join detal_zamow dz on z.idz = dz.z_id group by k.miasto order by laczna_liczba_sztuk desc; 
+             miasto 	laczna_liczba_sztuk Descending 1 	
+                Wrocław 	28
+                Warszawa 	21
+                Łódź 	6
+                Toruń 	5
+                Wrocławice 	0
+                Wrocławki 	0
+
+Zadanie 13: 
+    select k.nazwa as klient, k.miasto, ifnull(sum(p.cena * dz.sztuk), 0) as laczna_wartosc_zamowien from klienci k left join zamow z on k.idk = z.k_id left join detal_zamow dz on z.idz = dz.z_id left join produkty p on dz.p_id = p.idp group by k.idk, k.nazwa, k.miasto order by laczna_wartosc_zamowien desc; 
+         klient 	miasto 	laczna_wartosc_zamowien Descending 1 	
+            ERE 	Warszawa 	23533.00
+            XYZ 	Wrocław 	13594.98
+            INNOV 	Warszawa 	10740.00
+            BCA 	Wrocław 	8365.00
+            OCY 	Łódź 	8112.00
+            Astro 	Wrocław 	7398.97
+            Jan Kowalczyk 	Wrocław 	6665.00
+            Cesoft 	Wrocław 	6217.00
+            JAFO 	Toruń 	3995.00
+            SP201 	Wrocław 	2899.00
+            AMSiO 	Wrocławki 	0.00
+            Młynek i S-ka 	Wrocławice 	0.00
+            ATest 	Wrocław 	0.00
+
+Zadanie 14: 
+    select z.idz as nr_zamowienia, date(z.data) as data_zamowienia, ifnull(sum(p.cena * dz.sztuk), 0) as wartosc_zamowienia from zamow z left join detal_zamow dz on z.idz = dz.z_id left join produkty p on dz.p_id = p.idp group by z.idz, z.data order by z.data desc; 
+     nr_zamowienia 	data_zamowienia 	wartosc_zamowienia 	
+                49 	    2017-11-16 	        8112.00
+                48 	    2017-10-30 	        2009.00
+                50 	    2017-10-02 	        10740.00
+                45 	    2017-09-17 	        998.00
+                43 	    2017-08-28 	        1998.00
+                51 	    2017-06-24 	        4208.00
+                41 	    2017-05-30 	        6665.00
+                39 	    2017-05-30 	        2899.00
+                21 	    2017-05-29 	        1998.00
+                15 	    2017-05-23 	        2997.00
+                52 	    2017-05-05 	        6367.00
+                5 	    2017-04-05 	        13890.00
+                4 	    2017-03-30 	        7645.00
+                3 	    2017-03-24 	        13594.98
+                2 	    2017-03-24 	        7398.97
+        
+Zadanie 15: 
+    select k.nazwa as klient, count(distinct p.idp) as liczba_drogich_produktow from klienci k left join zamow z on k.idk = z.k_id left join detal_zamow dz on z.idz = dz.z_id left join produkty p on dz.p_id = p.idp and p.cena > 1500 group by k.idk, k.nazwa order by liczba_drogich_produktow desc; 
+             klient 	liczba_drogich_produktow Descending 1 	
+                INNOV 	3
+                ERE 	3
+                XYZ 	2
+                BCA 	2
+                Astro 	2
+                SP201 	1
+                Cesoft 	1
+                OCY 	1
+                Jan Kowalczyk 	1
+                JAFO 	1
+                Młynek i S-ka 	0
+                ATest 	0
+                AMSiO 	0
+
+Zadanie 16: 
+    select p.nazwa as produkt, count(distinct k.idk) as liczba_klientow_z_W from produkty p left join detal_zamow dz on p.idp = dz.p_id left join zamow z on dz.z_id = z.idz left join klienci k on z.k_id = k.idk and k.miasto like "W%" group by p.idp, p.nazwa order by liczba_klientow_z_W desc; 
+     produkt 	liczba_klientow_z_W Descending 1 	
+        laptop 	4
+        tablet 	3
+        Iphone_6_plus 	2
+        Apple Watch 3 	2
+        laptop dell 	2
+        Samsung Galaxy S7 	2
+        Samsung Galaxy J5 	2
+        HUAWEI P9 	1
+        Asus R75VJ 	1
+        Iphone_6 	1
+        Apple Iphone 8 	1
+        laptop asus 	0
+        LENOVO Tab M10 	0
+        smartfon 	0
+        Laptop Lenovo Legion 	0
+        plazma48 	0
+
+Zadanie 17: 
+    select z1.* from zamow z1 left join zamow z2 on z1.data < z2.data group by z1.idz, z1.k_id , z1.data having count(z2.idz) < 3 order by z1.data desc; 
+         idz 	k_id 	data Descending 1 	
+            49 	5 	2017-11-16 17:40:02
+            48 	8 	2017-10-30 18:19:36
+            50 	12 	2017-10-02 17:41:12
+
+Zadanie 18: 
+    select p.*, dz.*, count(distinct case when dz.p_id = p.idp then dz.z_id end) as liczba_unikalnych_zamowien from produkty p cross join detal_zamow dz join produkty p_max on p.ilosc <= p_max.ilosc group by p.idp, p.nazwa, p.cena, p.ilosc, dz.idd, dz.z_id, dz.p_id, dz.sztuk having count(p_max.idp) = 1 and dz.p_id = p.idp order by p.idp, dz.idd; 
+        dp Descending 1 	nazwa 	cena 	ilosc 	idd 	z_id 	p_id 	sztuk 	liczba_unikalnych_zamowien 	
+            4 	tablet 	999.00 	21 	7 	5 	4 	7 	1
+            4 	tablet 	999.00 	21 	11 	21 	4 	2 	1
+            4 	tablet 	999.00 	21 	20 	43 	4 	2 	1
+            4 	tablet 	999.00 	21 	29 	51 	4 	2 	1
