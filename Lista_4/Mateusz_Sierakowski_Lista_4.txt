@@ -13,3 +13,69 @@ Zadanie 2:
                     +----------------------------------------------------------------------------------------------------+
                     | AMSiO, Astro, ATest, BCA, Cesoft, ERE, INNOV, JAFO, Jan Kowalczyk, Młynek i S-ka, OCY, SP201, XYZ  |
                     +----------------------------------------------------------------------------------------------------+
+
+Zadanie 3: 
+    select datediff(max(z.data), min(z.data)) as dni_miedzy_zamowieniami,
+    -> count(distinct p.idp) as liczba_roznych_produktow_samosung, 
+    -> count(distinct z.idz) as liczba_zamowien_z_samsung
+    -> from zamow z
+    -> join detal_zamow dz on z.idz = dz.z_id
+    -> join produkty p on dz.p_id = p.idp
+    -> where p.nazwa like '%Samsung%';
+        +-------------------------+-----------------------------------+---------------------------+
+        | dni_miedzy_zamowieniami | liczba_roznych_produktow_samosung | liczba_zamowien_z_samsung |
+        +-------------------------+-----------------------------------+---------------------------+
+        |                      67 |                                 2 |                         4 |
+        +-------------------------+-----------------------------------+---------------------------+
+
+Zadanie 4: 
+    select dayname(z.data) as dzien_tygodnia, k.nazwa as klient from zamow z join klienci k on z.k_id = k.idk group by dzien_tygodnia, klient order by field(dzien_tygodnia, 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'), klient; 
+         dzien_tygodnia 	klient Ascending 2 	
+            Monday 	BCA
+            Monday 	Cesoft
+            Monday 	ERE
+            Monday 	INNOV
+            Tuesday 	JAFO
+            Tuesday 	Jan Kowalczyk
+            Tuesday 	SP201
+            Wednesday 	ERE
+            Thursday 	ERE
+            Thursday 	OCY
+            Friday 	Astro
+            Friday 	BCA
+            Friday 	XYZ
+            Saturday 	Cesoft
+            Sunday 	JAFO
+
+Zadanie 5: 
+    select year(z.data) as rok, monthname(z.data) as miesiac, sum(p.cena * dz.sztuk) as laczna_wartosc_zamowien from zamow z join detal_zamow dz on z.idz = dz.z_id join produkty p on dz.p_id = p.idp group by year(z.data), month(z.data), monthname(z.data) order by rok, month(z.data); 
+        ok Ascending 1 	miesiac 	laczna_wartosc_zamowien 	
+                2017 	March 	28638.95
+                2017 	April 	13890.00
+                2017 	May 	20926.00
+                2017 	June 	4208.00
+                2017 	August 	1998.00
+                2017 	September 	998.00
+                2017 	October 	12749.00
+                2017 	November 	8112.00
+    
+Zadanie 6: 
+    select ceiling(p.cena / 1000) * 1000 as kategoria_cenowa, json_arrayagg(p.nazwa) as produkty_w_kategorii from produkty p group by kategoria_cenowa order by kategoria_cenowa; 
+             kategoria_cenowa Descending 1 	produkty_w_kategorii 	
+                1000 	["LENOVO Tab M10 ","Samsung Galaxy J5","tablet","s...
+                2000 	["Apple Watch 3","HUAWEI P9","laptop asus","Iphone...
+                3000 	["Asus R75VJ","Iphone_6_plus","laptop dell","plazm...
+                4000 	["Apple Iphone 8"]
+                6000 	["Laptop Lenovo Legion"]
+
+Zadanie 7: 
+    select p.nazwa as produkt, sum(p.cena * dz.sztuk) as laczna_wartosc_zamowien from produkty p join detal_zamow dz on p.idp = dz.p_id group by p.idp, p.nazwa having sum(p.cena * dz.sztuk) > 7000 order by laczna_wartosc_zamowien desc; 
+         produkt 	laczna_wartosc_zamowien Descending 1 	
+        laptop 	21989.00
+        tablet 	12987.00
+        Samsung Galaxy S7 	8999.95
+        laptop dell 	8997.00
+        Iphone_6 	7645.00
+
+Zadanie 8: 
+    
