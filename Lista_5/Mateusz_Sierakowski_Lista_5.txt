@@ -1,0 +1,92 @@
+Zadanie 1: 
+    -- Perspektywa 1 
+    create or replace view klienci_zamowienia_produkty as select k.*, z.idz as zamowienie_id, z.data, d.idd as detal_id, d.sztuk, p.idp as produkt_id, p.nazwa as produkt_nazwa, p.cena, p.ilosc from klienci k left join zamow z on k.idk = z.k_id left join detal_zamow d on z.idz = d.z_id left join produkty p on d.p_id = p.idp; 
+    -- Perspektywa 2
+    create or replace view wszystkie_produkty_zamowienia as select p.*, d.idd as detal_id, d.sztuk, z.idz as zamowienie_id, z.data, k.idk as klient_id, k.nazwa as klient_nazwa, k.miasto from produkty p left join detal_zamow d on p.idp = d.p_id left join zamow z on d.z_id = z.idz left join klienci k on z.k_id = k.idk; 
+
+Zadanie 2: 
+    -- Perspektywa 
+    create or replace view v_zamowienia_klienci_produkty AS select k.idk as klient_id, k.nazwa as klient_nazwa, k.miasto as klient_miasto, k.adres as klient_adres, k.telefon as klient_telefon, z.idz as zamowienie_id, z.data as zamowienie_data, dz.idd as detal_id, dz.sztuk, p.idp as produkt_id, p.nazwa as produkt_nazwa, p.cena as produkt_cena, p.ilosc as produkt_ilosc from klienci k left join zamow z on k.idk = z.k_id left join detal_zamow dz on z.idz = dz.z_id left join produkty p on dz.p_id = p.idp; 
+    -- Wystarczy perspektywa v_klienci_zamowienia (zawierająca wszystkich klientów)
+    -- Nie potrzebujemy v_produkty_zamowienia, bo szukamy klientów, nie wszystkich produktów
+    zadanie 9) select distinct klient_adres from v_zamowienia_klienci_produkty where produkt_nazwa like '%laptop%' order by reverse(klient_nazwa); 
+    
+    -- Wystarczy perspektywa v_klienci_zamowienia
+    -- v_produkty_zamowienia nie jest optymalna, bo zawiera wszystkie produkty (nawet niezamawiane)
+    zadanie 10) select distinct produkt_nazwa from v_zamowienia_klienci_produkty where klient_telefon like '%4%' order by produkt_cena asc; 
+    
+    -- Lepsza jest v_produkty_zamowienia (zawiera wszystkie produkty)
+    -- v_klienci_zamowienia też zadziała, ale może pominąć niezamawiane produkty
+    zadanie 13) select distinct v.produkt_nazwa as produkt, v.klient_miasto as miejscowosc from v_zamowienia_klienci_produkty v where v.produkt_id is not null order by v.produkt_nazwa, v.klient_miasto; 
+    
+    -- WYMAGANA jest v_produkty_zamowienia (jako jedyna zawiera wszystkie produkty)
+    -- v_klienci_zamowienia nie zawiera niezamawianych produktów
+    Zadanie 14) select p.nazwa from produkty p left join v_zamowienia_klienci_produkty v on p.idp = v.produkt_id where v.produkt_id is null; 
+    
+    -- WYMAGANA jest v_klienci_zamowienia (jako jedyna zawiera wszystkich klientów)
+    -- v_produkty_zamowienia pomija klientów bez zamówień
+    zadanie 15) select k.nazwa from klienci k left join v_zamowienia_klienci_produkty v on k.idk = v.klient_id where v.detal_id is null;  
+
+    -- ŻADNA z perspektyw z Zad. 1 nie pozwala na proste rozwiązanie
+    -- Dlaczego: Obie perspektywy nie mają bezpośredniego dostępu do filtrowania klientów po miejscowości
+    -- Wymagane byłoby dodatkowe JOIN-y z tabelą klienci, co traci sens użycia perspektywy
+    zadanie 16) 
+
+Zadanie 3: 
+    select distinct k1.nazwa from klienci_zamowienia_produkty k1 join klienci_zamowienia_produkty k2 on k1.idk = k2.idk where k1.produkt_nazwa like '%laptop%' and k2.produkt_nazwa like '%tablet%'; 
+
+Zadanie 4
+    with laptopy as ( select cena from produkty where nazwa like '%laptop%' ) select distinct k.nazwa from klienci k join zamow z on k.idk = z.k_id join detal_zamow d on z.idz = d.z_id join produkty p on d.p_id = p.idp join laptopy l on p.cena > l.cena; 
+
+Zadanie 5: 
+    with warszawscy_klienci as ( select nazwa from klienci where miasto = 'Warszawa'), min_warszawska_nazwa as ( select min(nazwa) as min_nazwa from warszawscy_klienci) select distinct p.nazwa from produkty p join detal_zamow d on p.idp = d.p_id join zamow z on d.z_id = z.idz join klienci k on z.k_id = k.idk join min_warszawska_nazwa m on k.nazwa < m.min_nazwa; 
+
+Zadanie 6: 
+    with wartosci_zamowien as ( select k.idk, k.nazwa, sum(d.sztuk * p.cena) as laczna_wartosc from klienci k join zamow z on k.idk = z.k_id join detal_zamow d on z.idz = d.z_id join produkty p on d.p_id = p.idp group by k.idk, k.nazwa ), wartosc_astro as ( select laczna_wartosc from wartosci_zamowien where nazwa = 'Astro' ) SELECT w.nazwa, w.laczna_wartosc from wartosci_zamowien w join wartosc_astro a on w.laczna_wartosc > a.laczna_wartosc; 
+
+Zadanie 7: 
+    a) select nazwa, cena from produkty where cena > 2 * (select avg(cena) from produkty); 
+    b) select nazwa, cena from produkty where cena > 2 * (select sum(cena * ilosc) / sum(ilosc) from produkty); 
+    c) with suma_zamowien as ( select p.idp, coalesce(sum(d.sztuk), 0) as laczna_ilosc from produkty p left join detal_zamow d on p.idp = d.p_id group by p.idp) select p.nazwa, p.cena from produkty p where p.cena > 2 * (select sum(p.cena * s.laczna_ilosc ) / nullif(sum(s.laczna_ilosc), 0) from produkty p join suma_zamowien s on p.idp = s.idp); 
+
+Zadanie 8: 
+    with wartosci_zamowien as ( select z.idz, yearweek(z.data) as tydzien, sum(d.sztuk * p.cena) as wartosc from zamow z join detal_zamow d on z.idz = d.z_id join produkty p on d.p_id = p.idp group by z.idz, yearweek(z.data) ) select tydzien, avg(wartosc) as srednia_wartosc from wartosci_zamowien group by tydzien order by tydzien; 
+
+Zadanie 9: 
+    with wartosci_klientow as ( select k.idk, k.nazwa, sum(d.sztuk * p.cena) as laczna_wartosc from klienci k join zamow z on k.idk = z.k_id join detal_zamow d on z.idz = d.z_id join produkty p on d.p_id = p.idp group by k.idk, k.nazwa ) select nazwa, laczna_wartosc from wartosci_klientow where laczna_wartosc = (select max(laczna_wartosc) from wartosci_klientow); 
+
+Zadanie 10: 
+    a) with liczba_zamowien as ( select p.idp, p.nazwa, count(d.idd) as ilosc_zamowien from produkty p join detal_zamow d on p.idp = d.p_id group by p.idp, p.nazwa ) select nazwa, ilosc_zamowien from liczba_zamowien where ilosc_zamowien = (select max(ilosc_zamowien) from liczba_zamowien); 
+    b) with laczna_ilosc as ( select p.idp, p.nazwa, sum(d.sztuk) as laczna_sztuk from produkty p join detal_zamow d on p.idp = d.p_id group by p.idp, p.nazwa ) select nazwa, laczna_sztuk from laczna_ilosc where laczna_sztuk = (select max(laczna_sztuk) from laczna_ilosc); 
+
+Zadnaie 11: 
+    with wartosci_produktow_dzien as ( select date(z.data) as data_dnia, p.idp, p.nazwa, sum(d.sztuk * p.cena) as laczna_wartosc from produkty p join detal_zamow d on p.idp = d.p_id join zamow z on d.z_id = z.idz ), maksymalne_wartosci_dzien as ( select data_dnia, max(laczna_wartosc) as max_wartosc from wartosci_produktow_dzien group by data_dnia ) select w.data_dnia, w.nazwa as produkt_dnia, w.laczna_wartosc from wartosci_produktow_dzien w join maksymalne_wartosci_dzien m on w.data_dnia = m.data_dnia and w.laczna_wartosc = m.max_wartosc order by w.data_dnia; 
+
+Zadanie 12: 
+    with ostatnie_zamowienia_miasta as ( select k.miasto, max(z.data) as ostatnia_data from klienci k join zamow z on k.idk = z.k_id group by k.miasto ), klienci_ostatni as ( select k.miasto, k.nazwa as klient, z.data from klienci k join zamow z on k.idk = z.k_id join ostatnie_zamowienia_miasta o on k.miasto = o.miasto and z.data = o.ostatnia_data ) select miasto, klient, data from klienci_ostatni order by miasto; 
+
+Zadanie 13:
+    with wydatki_klientow_produkty as ( select k.idk, k.nazwa as klient, p.idp, p.nazwa as produkt, sum(d.sztuk * p.cena) as laczna_wartosc from klienci k join zamow z on k.idk = z.k_id join detal_zamow d on z.idz = d.z_id join produkty p on d.p_id = p.idp group by k.idk, k.nazwa, p.idp, p.nazwa ), maksymalne_wydatki as ( select idk, max(laczna_wartosc) as max_wartosc from wydatki_klientow_produkty group by idk ) select w.klient, w.produkt, w.laczna_wartosc from wydatki_klientow_produkty w join maksymalne_wydatki m on w.idk = m.idk and w.laczna_wartosc = m.max_wartosc order by w.klient; 
+
+Zadanie 14:
+    select p.nazwa from produkty p where p.idp not in (select distinct p_id from detal_zamow where p_id is not null); 
+
+Zadanie 15: 
+    select k.nazwa from klienci k where k.idk not in ( select distinct k_id from zamow where k_id is not null and idz in ( select z_id from detal_zamow)); 
+
+Zadanie 16: 
+    select z.idz as puste_zamiwenie_id, z.data, k.nazwa as klient from zamow z join klienci k on z.k_id = k.idk where z.idz not in (select distinct z_id from detal_zamow where z_id is not null); 
+
+Zadanie 17: 
+    select z.idz as puste_zamiwenie_id, z.data, k.nazwa as klient from zamow z join klienci k on z.k_id = k.idk where z.idz not in (select distinct z_id from detal_zamow where z_id is not null); 
+
+Zadanie 18: 
+    select p.*, dz.*, (select count(distinct z_id) from detal_zamow where p_id = (select idp from produkty order by ilosc desc limit 1)) as liczba_unikalnych_zamowien from produkty p join detal_zamow dz on p.idp = dz.p_id where p.ilosc = (select max(ilosc) from produkty) order by p.idp, dz.idd; 
+
+Zadanie 19: 
+    select k.nazwa as klient, ( select count(distinct p.idp) from zamow z join detal_zamow dz on z.idz = dz.z_id join produkty p on dz.p_id = p.idp where z.k_id = k.idk and p.cena > 1500 ) as liczba_drogich_produktow from klienci k order by k.nazwa; 
+
+Zadanie 20: 
+    select p.nazwa as produkt, ( select count(distinct k.idk) from klienci k join zamow z on k.idk = z.k_id join detal_zamow dz on z.idz = dz.z_id where dz.p_id = p.idp and k.miasto like 'W%' ) as liczba_klientow_z_W from produkty p order by p.nazwa; 
+
+
