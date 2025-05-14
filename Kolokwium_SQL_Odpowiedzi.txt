@@ -1,0 +1,370 @@
+Lista 1. 
+zad1) select dayofyear(curdate()); 
+zad2) select dayname("07-02-2003"); // mozna tez dayofweek lub weekday
+zad3) select floor(pi() * pow(10,10)) % 10;
+zad4) select right(truncate(ext(1), 8), 1); 
+zad5) select floor(rand() * 6) + 1; 
+zad6) select nazwa, cena * ilosc as wartosc from produkty; 
+zad7) select id, nazwa, miasto, substring_index(adres, ". ", -1) as skrocony_adres, telefon from klienci; 
+zad8) select concat_ws(", ", nazwa, adres, miasto, telefon) as wizytowka from klienci; 
+zad9) select nazwa, json_object("zlotych", floor(cena), "groszy", round(100 * cena % 100)) as obiekt from produkty; 
+zad10) select idz, subdate(addate(date(data), interval 1 month), case weekday(addate(date(data), interval 1 month)) when 5 then 1 when 6 then 2 else 0 end) as data_faktury from zamow; 
+zad11) select nazwa from klienci where miasto != "Wrocław"; 
+zad12) select nazwa from klienci where locate("s", nazwa) between 1 and length(nazwa) /2; 
+zad13) select * from zamow where weekdat(data) = 0 or weekdat(data) = 4; 
+zad14) select * from zamow where time(data) > "16:00:00";
+zad15) select nazwa from produkty where nazwa not like "%apple%";
+zad16) select nazwa from klienci where adres like "%Marszałkowska%"; 
+zad17) select miasto from klienci where length(adres) > 15; 
+zad18) select nazwa, if(cena > 1500, ceiling(cena * 1.1 / 12), null) as rata from produkty; 
+zad19) select * from produkty; select * from produkty order by ilosc; select * from detal_zamow where p_id = 4; select distinct * from detal_zamow where p_id = 4; 
+
+Lista 2. 
+zad1) select * from klienci join produkty; 
+zad2) select zamow.*, sztuk from zamow join detal_zamow on idz = z_id; 
+zad3) select nazwa, sztuk from produkty join detal_zamow on idp = p_id; 
+zad4) select cena * sztuk as wartosc from detal_zamow join produkty on idp = p_id order by 1 desc; 
+zad5) select szuk from zamow join detal_zamow on idz = z_id where time(data) > "12:00:00";
+zad6) select distinct monthname(data) from klienci join zamow on idk = k_id where miasto != "Wrocław"; 
+zad7) select distinct cena from produkty join detal_zamow on idp = p_id join zamow on idz = z_id where weekday(data) = 4; 
+zad8) select nazwa from klienci join zamow on idk = k_id join detal_zamow on idz = z_id where sztuk > 4 order by miasto desc; 
+zad9) select adres from klienci join zamow on idk = k_id join detal_zamow on idz = z_id join produkty on idp = p_id where produkty.nazwa like "%laptop%" order by reverse(klienci.nazwa); 
+zad10) select produkty.nazwa from produkty join detal_zamow on idp = p_id join zamow on idz = z_id join klienci on idk = k_id where telefon like "%4%" order by cena;
+zad11) select * from klienci join produkty using ( nazwa ); 
+zad12) select distinct nazwa, date(data) from klienci left join zamow on idk = k_id order by 2; 
+zad13) select distinct produkty.nazwa, miasto from klienci join zamow on idk = k_id join detal_zamow on idz = z_id right join produkty on idp = p_id; 
+zad14) select nazwa from produkty left join detal_zamow on idp = p_id where idd is null; 
+zad15) select nazwa from klienci left join zamow on idk = k_id where idz is null; 
+zad16) select * from zamow left join detal_zamow on idz = z_id where idd is null; 
+zad17) select distinct z+id from produkty as p1 left join produkty as p2 on p1.ilosc < p2.ilosc left join detal_zamow on p1.idp = p_id where p2.idp is null; 
+
+Lista 4. 
+zad1) select sum(cena * ilosc) from produkty;
+zad2) select group_concat(nazwa order by 1 separator ", ") from klienci;  
+zad3) select datediff(max(data), min(data)), count(distinct idp), count(distinct idz) from zamow join detal_zamow on idz = z_id join produkty on idp = p_id where nazwa like "%samsung%"; 
+zad4) select dayname(data), count(distinct k_id) from zamow group by 1 group by 2 desc; 
+zad5) select year(data), month(data), sum(cena*sztuk) from zamow join detal_zamow on idz = z_id join produkty on idp = p_id group by 1, 2 order by 1, 2; 
+zad6) select ceiling(cena/1000)*1000, json_arrayagg(nazwa) from produkty group by 1 order by 1;
+zad7) select nazwa from produkty join detal_zamow on idp = p_id group by idp having sum (cena * sztuk ) > 7000 order by 1 asc; 
+zad8) select klienci.nazwa from klienci join zamow on idk = k_id join detal_zamow on idz = z_id join produkty on idp = p_id where cena > 1800 group by idk having sum (sztuk) > 1 order by 1 asc; 
+zad9) select nazwa, avg(sztuk) from produkty join detal_zamow on idp = p_id join zamow on idz = z_id group by idp having bit_or(weekdat(data) = 4) order by 2 desc; 
+zad10) select nazwa, count(distinct idz) from klienci left join zamow on idk = k_id group by idk; 
+zad11) select nazwa, ifnull(sum(sztuk), 0) from produkty left join detal_zamow on idp = p_id group by idp order by 2 desc; 
+zad12) select miasto, ifnull(sum(sztuk), 0) from klienci left join zamow on idk = k_id left join detal_zamow on idz = z_id group by 1 order by 2 desc; 
+zad13) select klienci.nazwa, miasto, ifnull(sum(cena*sztuk), 0) from klienci left join zamow on idk = k_id left join detal_zamow on idz = z_id left join produkty on idp = p_id group by idk order by 3 desc; 
+zad14) select data, sum(cena * sztuk) from zamow left join detal_zamow on idz = z_id left join produkty on idp = p_id group by idz order by 2 desc; 
+zad15) select klienci.nazwa, count(distinct idp) from klienci left join zamow on idk = k_id left join detal_zaow on idz = z_id left join produkty on (idp = p_id and cena > 1500) group by idk order by 2 desc; 
+zad16) select produkty.nazwa, count(distinct idk) from produkty left join detal_zamow on idp = p_id left join zamow on idz = z_id left join kleinci on (idk = k_id and miasto like "W%") group by idp order by 2 desc; 
+zad17) select z1.* from zamow z1 join zamow z2 on z1.data <= z2.data group by z1.idz having count(z2.idz) <= 3 order by data; 
+
+Lista 1
+    1. Funkcje daty i czasu
+        - NOW() – zwraca bieżącą datę i czas.
+        - DAYOFYEAR(data) – zwraca numer dnia w roku dla podanej daty.
+        - DAYNAME(data) – zwraca nazwę dnia tygodnia dla podanej daty.
+        - DAYOFWEEK(data) – zwraca numer dnia tygodnia (np. 1 = niedziela, 2 = poniedziałek).
+        - HOUR(data) – zwraca godzinę z podanego znacznika czasu.
+    2. Operacje na liczbach i zaokrąglanie
+        - FORMAT(liczba, liczba_miejsc) – zaokrągla liczbę do podanej liczby miejsc po przecinku i zwraca ją jako tekst.
+        - FLOOR(liczba) – zaokrągla liczbę w dół do najbliższej liczby całkowitej.
+        - ROUND(liczba, liczba_miejsc) – zaokrągla liczbę do określonej liczby miejsc po przecinku.
+    3. Generowanie losowych wartości
+        - RAND() – zwraca losową liczbę zmiennoprzecinkową z zakresu 0–1.
+        - FLOOR(1 + RAND() * 6) – symuluje rzut kostką sześciościenną.
+    4. Operacje na tekstach
+        - SUBSTRING(tekst, początek, długość) – zwraca fragment tekstu od podanego miejsca.
+        - SUBSTRING_INDEX(tekst, separator, liczba_części) – zwraca część tekstu przed lub po określonym separatorze.
+        - LIKE – używane do filtrowania tekstu na podstawie wzorca, np. "s%" (zaczyna się od „s”), "%s%" (zawiera „s”).
+        - CONCAT(tekst1, tekst2, ...) – łączy kilka ciągów tekstowych w jeden.
+    5. Filtrowanie danych
+        - WHERE warunek – filtruje rekordy na podstawie określonego warunku.
+        - NOT LIKE '%Apple%' – wybiera tylko te wartości, które nie zawierają słowa „Apple”.
+        - != – sprawdza, czy wartość jest różna od podanej (np. WHERE miasto != 'Wrocław').
+        - LENGTH(tekst) – zwraca długość tekstu w znakach.
+    6. Operacje na tabelach
+        - SELECT kolumny FROM tabela – pobiera określone kolumny z tabeli.
+        - COUNT(*) – liczy liczbę rekordów w tabeli.
+        - COUNT(DISTINCT kolumna) – liczy unikalne wartości w danej kolumnie.
+        - ORDER BY kolumna DESC – sortuje wyniki malejąco.
+        - LIMIT liczba – ogranicza liczbę zwróconych rekordów.
+    7. Tworzenie obiektów JSON
+        - JSON_OBJECT(klucz1, wartość1, klucz2, wartość2) – tworzy obiekt JSON, np.
+            SELECT JSON_OBJECT('złotych', FLOOR(cena), 'groszy', ROUND((cena - FLOOR(cena)) * 100)) FROM produkty;
+        - FLOOR(cena) – pobiera liczbę złotych.
+        - ROUND((cena - FLOOR(cena)) * 100) – oblicza grosze.
+
+Lista 2
+    1. Iloczyn kartezjański (CROSS JOIN)
+        - CROSS JOIN łączy każdą możliwą kombinację wierszy z dwóch tabel.
+        - Wynik zawiera każdy wiersz z pierwszej tabeli połączony ze wszystkimi wierszami z drugiej tabeli.
+        - Przykład:
+            SELECT * FROM klienci CROSS JOIN produkty;
+        - Może prowadzić do ogromnej liczby rekordów, dlatego należy go stosować ostrożnie.
+    2. Złączenie tabel (INNER JOIN)
+        - INNER JOIN zwraca tylko te rekordy, które mają pasujące wartości w obu tabelach.
+        - Jest to najczęściej używany typ złączenia.
+        - Przykład:
+            SELECT zamow.*, detal_zamow.sztuk
+            FROM zamow
+            INNER JOIN detal_zamow ON zamow.idz = detal_zamow.z_id;
+        - Dla każdego zamówienia pobiera odpowiadającą mu liczbę sztuk zamówionych produktów.
+    3. Filtrowanie wyników (WHERE)
+        - WHERE służy do wybierania tylko tych rekordów, które spełniają określony warunek.
+        - Przykład (zamówienia po południu):
+            SELECT sztuk FROM detal_zamow
+            INNER JOIN zamow ON detal_zamow.z_id = zamow.idz
+            WHERE HOUR(zamow.data_zamowienia) > 12;
+        - HOUR(data_zamowienia) zwraca godzinę zamówienia i pozwala filtrować wyniki.
+    4. Sortowanie (ORDER BY)
+        - ORDER BY sortuje wyniki według wskazanej kolumny.
+        - Możemy użyć DESC dla sortowania malejącego lub ASC dla rosnącego.
+        - Przykład (sortowanie wartości detali zamówień):
+            SELECT sztuk FROM detal_zamow ORDER BY sztuk DESC;
+        - Wyniki będą uporządkowane od największej liczby sztuk do najmniejszej.
+    5. Operacje na tekście (LIKE, SUBSTRING, CONCAT)
+        - LIKE służy do wyszukiwania wzorców tekstowych.
+        - SUBSTRING() pozwala wyciągnąć część tekstu.
+        - CONCAT() łączy wiele ciągów znaków w jeden.
+        - Przykład (wyszukiwanie klientów, którzy zamówili laptopa):
+            SELECT adres FROM klienci
+            WHERE nazwa LIKE '%laptop%'
+            ORDER BY REVERSE(nazwa);
+        - LIKE '%laptop%' szuka klientów, których nazwa zawiera słowo „laptop”.
+        - ORDER BY REVERSE(nazwa) sortuje według odwróconej nazwy klienta.
+    6. Filtrowanie na podstawie dat (MONTHNAME, DAYOFWEEK)
+        - MONTHNAME(data) zwraca nazwę miesiąca dla podanej daty.
+        - DAYOFWEEK(data) zwraca numer dnia tygodnia (1 = niedziela, 7 = sobota).
+        - Przykład (zamówienia w piątki):
+            SELECT produkty.cena
+            FROM detal_zamow
+            INNER JOIN zamow ON detal_zamow.z_id = zamow.idz
+            INNER JOIN produkty ON detal_zamow.p_id = produkty.idp
+            WHERE DAYOFWEEK(zamow.data_zamowienia) = 6;
+        - Wyniki pokażą ceny produktów, które były zamawiane w piątki.
+    7. Zapytania dotyczące niezamawianych klientów i produktów
+        - LEFT JOIN pozwala znaleźć rekordy, które nie mają dopasowania w drugiej tabeli.
+        - IS NULL pomaga wykryć brakujące wartości.
+        - Przykład (produkty nigdy niezamówione):
+            SELECT produkty.nazwa
+            FROM produkty
+            LEFT JOIN detal_zamow ON produkty.idp = detal_zamow.p_id
+            WHERE detal_zamow.p_id IS NULL;
+        - LEFT JOIN pobiera wszystkie produkty i sprawdza, które nie występują w detal_zamow.
+
+Lista 4
+    1. Operacje matematyczne i agregujące
+        SUM() – Sumowanie wartości
+        - SUM(kolumna) oblicza łączną wartość określonych rekordów w kolumnie.
+        - Przykład (łączna wartość towaru na stanie sklepu):
+            SELECT SUM(ilosc * cena) AS wartosc_towaru FROM produkty;
+        - ilosc * cena daje wartość każdego produktu, a SUM() sumuje te wartości dla całej tabeli.
+            DATEDIFF() – Różnica dat
+        - DATEDIFF(data1, data2) zwraca liczbę dni między dwiema datami.
+        - Przykład (liczba dni między pierwszym a ostatnim zamówieniem):
+            SELECT DATEDIFF(MAX(data_zamowienia), MIN(data_zamowienia)) AS roznica_dni FROM zamow;
+        - MIN() i MAX() pobierają najstarsze i najnowsze zamówienie.
+            COUNT() – Liczenie rekordów
+        - COUNT(kolumna) zwraca liczbę niepustych rekordów w danej kolumnie.
+        - Przykład (liczba klientów składających zamówienia w określone dni tygodnia):
+            SELECT DAYNAME(data_zamowienia) AS dzien, COUNT(DISTINCT k_id) AS liczba_klientow
+            FROM zamow
+            GROUP BY DAYNAME(data_zamowienia);
+        - GROUP BY DAYNAME(data_zamowienia) grupuje wyniki według dni tygodnia.
+    2. Operacje na tekstach
+        GROUP_CONCAT() – Łączenie wartości w jeden napis
+        - GROUP_CONCAT(kolumna SEPARATOR ', ') zwraca zbiór wartości jednej kolumny jako pojedynczy ciąg tekstowy.
+        - Przykład (nazwy wszystkich klientów w jednej kolumnie):
+            SELECT GROUP_CONCAT(nazwa SEPARATOR ', ') AS klienci FROM klienci;
+        - SEPARATOR ', ' dodaje przecinki między nazwami klientów.
+            LIKE – Wyszukiwanie wzorców
+        - LIKE '%wartosc%' znajduje wszystkie rekordy zawierające określony ciąg znaków.
+        - Przykład (zamówienia produktów firmy Samsung):
+            SELECT * FROM produkty WHERE nazwa LIKE '%Samsung%';
+        - %Samsung% oznacza, że wyszukujemy rekordy zawierające "Samsung" w dowolnym miejscu nazwy.
+    3. Praca z datami
+        DAYNAME() – Nazwa dnia tygodnia
+        - DAYNAME(data) zwraca nazwę dnia tygodnia.
+        - Przykład (dni tygodnia i liczba klientów składających zamówienia w te dni):
+            SELECT DAYNAME(data_zamowienia) AS dzien, COUNT(DISTINCT k_id) AS liczba_klientow
+            FROM zamow
+            GROUP BY DAYNAME(data_zamowienia);
+        - Wyniki pokażą np.: „Poniedziałek – 10 klientów”, „Wtorek – 15 klientów” itd.
+            YEAR(), MONTH() – Wydobywanie roku i miesiąca
+        - YEAR(data) zwraca rok, a MONTH(data) zwraca numer miesiąca z daty.
+        - Przykład (łączna wartość zamówień złożonych w miesiącach danego roku):
+            SELECT YEAR(data_zamowienia) AS rok, MONTHNAME(data_zamowienia) AS miesiac, SUM(wartosc) AS laczna_wartosc
+            FROM zamow
+            GROUP BY YEAR(data_zamowienia), MONTH(data_zamowienia);
+        - MONTHNAME(data_zamowienia) zwraca nazwę miesiąca zamiast jego numeru.
+    4. Operacje na grupach
+        HAVING – Filtrowanie grup
+        - HAVING pozwala filtrować wyniki po agregacji.
+        - Przykład (produkty, których wartość zamówień przekracza 7000 zł):
+            SELECT p_id, SUM(sztuk * cena) AS laczna_wartosc
+            FROM detal_zamow
+            INNER JOIN produkty ON detal_zamow.p_id = produkty.idp
+            GROUP BY p_id
+            HAVING laczna_wartosc > 7000;
+        - HAVING działa po GROUP BY, w przeciwieństwie do WHERE.
+            JSON_ARRAYAGG() – Tworzenie tablicy JSON
+        - JSON_ARRAYAGG(kolumna) zwraca zbiór wartości jako tablicę JSON.
+        - Przykład (produkty w kategoriach cenowych):
+            SELECT CEIL(cena / 1000) * 1000 AS kategoria, JSON_ARRAYAGG(nazwa) AS produkty
+            FROM produkty
+            GROUP BY kategoria;
+        - CEIL(cena / 1000) * 1000 zaokrągla cenę w górę do pełnych tysięcy złotych.
+    5. Złączenia tabel
+        INNER JOIN – Łączenie powiązanych rekordów
+        - INNER JOIN zwraca rekordy pasujące do obu tabel.
+        - Przykład (liczba zamówionych egzemplarzy każdego produktu):
+            SELECT produkty.nazwa, SUM(sztuk) AS laczna_ilosc
+            FROM detal_zamow
+            INNER JOIN produkty ON detal_zamow.p_id = produkty.idp
+            GROUP BY produkty.nazwa;
+        - SUM(sztuk) sumuje liczbę sztuk dla każdego produktu.
+            LEFT JOIN – Łączenie, zachowując brakujące wartości
+        - LEFT JOIN zachowuje wszystkie rekordy z lewej tabeli, nawet jeśli nie mają pasujących wyników w prawej.
+        - Przykład (liczba zamówień klientów, w tym tych bez zamówień):
+            SELECT klienci.nazwa, COALESCE(COUNT(zamow.idz), 0) AS liczba_zamowien
+            FROM klienci
+            LEFT JOIN zamow ON klienci.idk = zamow.k_id
+            GROUP BY klienci.nazwa;
+        - COALESCE(COUNT(zamow.idz), 0) zamienia NULL na 0, jeśli klient nie złożył żadnego zamówienia.
+    6. Zaawansowane operacje na grupach
+        COUNT(DISTINCT) – Liczenie unikalnych wartości
+        - COUNT(DISTINCT kolumna) zlicza tylko unikalne wartości w kolumnie.
+        - Przykład (liczba różnych produktów o cenie powyżej 1500 zł zamówionych przez każdego klienta):
+            SELECT klienci.nazwa, COUNT(DISTINCT produkty.idp) AS liczba_produktow
+            FROM zamow
+            INNER JOIN detal_zamow ON zamow.idz = detal_zamow.z_id
+            INNER JOIN produkty ON detal_zamow.p_id = produkty.idp
+            INNER JOIN klienci ON zamow.k_id = klienci.idk
+            WHERE produkty.cena > 1500
+            GROUP BY klienci.nazwa;
+        - Zapytanie zwraca liczbę unikalnych produktów zamówionych przez każdego klienta.
+
+Joiny
+    1. JOIN (INNER JOIN) – Łączenie pasujących rekordów
+        - JOIN (lub INNER JOIN) zwraca tylko rekordy, które mają dopasowanie w obu tabelach na podstawie wspólnego klucza.
+        - Jeśli dany wiersz w jednej tabeli nie ma odpowiadającego wiersza w drugiej tabeli, zostanie pominięty.
+            Przykład
+            Masz dwie tabele:
+            Tabela: Klienci
+            +----+-----------+
+            | id | nazwa     |
+            +----+-----------+
+            | 1  | Jan Kowalski |
+            | 2  | Anna Nowak   |
+            | 3  | Piotr Wiśniewski |
+            +----+-----------+
+
+            Tabela: Zamowienia
+            +----+---------+------+
+            | id | klient_id | produkt |
+            +----+---------+------+
+            | 1  | 1       | Laptop  |
+            | 2  | 2       | Telefon |
+            | 3  | 1       | Tablet  |
+            +----+---------+------+
+        
+        Zapytanie:
+            SELECT Klienci.nazwa, Zamowienia.produkt
+            FROM Klienci
+            JOIN Zamowienia ON Klienci.id = Zamowienia.klient_id;
+
+            Wynik:
+            +---------------+---------+
+            | nazwa         | produkt |
+            +---------------+---------+
+            | Jan Kowalski  | Laptop  |
+            | Jan Kowalski  | Tablet  |
+            | Anna Nowak    | Telefon |
+            +---------------+---------+
+        
+        Dlaczego?
+        - Klienci bez zamówień (Piotr Wiśniewski) zostali pominięci.
+        
+    2. LEFT JOIN – Łączenie wszystkich rekordów z lewej tabeli
+        - LEFT JOIN zwraca wszystkie rekordy z lewej tabeli (Klienci), a jeśli nie ma dopasowania w drugiej (Zamowienia), zwraca NULL dla brakujących wartości.
+            Przykład
+            SELECT Klienci.nazwa, Zamowienia.produkt
+            FROM Klienci
+            LEFT JOIN Zamowienia ON Klienci.id = Zamowienia.klient_id;
+            Wynik:
+            +---------------+---------+
+            | nazwa         | produkt |
+            +---------------+---------+
+            | Jan Kowalski  | Laptop  |
+            | Jan Kowalski  | Tablet  |
+            | Anna Nowak    | Telefon |
+            | Piotr Wiśniewski | NULL |
+            +---------------+---------+
+        Dlaczego?
+        - Piotr Wiśniewski nie ma zamówień, ale ponieważ jest w tabeli Klienci, pojawia się w wyniku z wartością NULL w produkt.
+
+    3. RIGHT JOIN – Łączenie wszystkich rekordów z prawej tabeli
+        - RIGHT JOIN działa odwrotnie niż LEFT JOIN – zwraca wszystkie rekordy z prawej tabeli (Zamowienia), nawet jeśli nie mają dopasowania w lewej tabeli (Klienci).
+            Przykład
+            SELECT Klienci.nazwa, Zamowienia.produkt
+            FROM Klienci
+            RIGHT JOIN Zamowienia ON Klienci.id = Zamowienia.klient_id;    
+            Wynik:
+            +---------------+---------+
+            | nazwa         | produkt |
+            +---------------+---------+
+            | Jan Kowalski  | Laptop  |
+            | Jan Kowalski  | Tablet  |
+            | Anna Nowak    | Telefon |
+            +---------------+---------+   
+        Dlaczego?
+        - Jeśli byłoby zamówienie bez przypisanego klienta, pojawiłoby się w wynikach z NULL w kolumnie nazwa.
+
+    Podsumowanie różnic
+    | Typ JOIN      | Co zwraca? | 
+    | INNER JOIN    | Tylko rekordy, które mają dopasowanie w obu tabelach. | 
+    | LEFT JOIN     | Wszystkie rekordy z lewej tabeli, a jeśli nie mają dopasowania, zwraca NULL. | 
+    | RIGHT JOIN    | Wszystkie rekordy z prawej tabeli, nawet jeśli nie mają dopasowania w lewej. | 
+
+Jakieś zadania: 
+    nazwiska i adresy czytelnikow, ktorych imiona maja mniej niz 7 znakow 
+        -select nazwisko, adres from czytelnicy where length(imie) > 7; 
+    wypisz wszystkie informacje o rezerwacjach zlozonych w pierwszych 10 tygodniach roku 
+        -select * from rezerwacje where week(data_rezerwacji, 1) <= 10; 
+    wypisz tytuly i artykuly dziel, ktorych egzemplarze wydane przez pwn ma biblioteka 
+        -select d.tytul, d.autor from dziela d join egzemplarze e on d.id = e.id_dziela where e.wydawnictwo = "PWM"; 
+    wypisz informacje o czytelnikach, których zdarzyło się wypożyczyć książkę mniej niż tydzień po jej zamówieniu
+        -select distinct c.* from czytelnicy c join zamowienia z on c.id = z.id_czytelnika join wypozyczenia w on z.id_egzemplarza = w.id_egzemplarza and c.id = w.id_czytelnika where datediff(w.data_wypozyczenia, z.data_zamowienia) <7; 
+    wypisz autorow i lata powstania dziel, których egzemplarzy biblioteka nie posiada. wyniki rosnaco wg tytulu
+        -select autor, rok_powstania from dziela where id not in(select distinct id_dziela from egzemnplarze) order by tutl asc; 
+    wypisz ile razy egzemplarze dziel autorw o imieniu charles byly rezerwowane w lutym 
+        -select count(*) as liczba_rezerwacji from rezerwacje r join egzemplarze e on r.id_egzemplarze = e.id join dziela d on e.id_dziela = d.id where d.autor like "Charles%" and month(r.data_rezerwacji) = 2; 
+    wypisz liczbe wydanych przez pwn egzemplarzy dziel powstalych przed 1950
+        -select count(*) as liczba_egzemplarzy from egzemplarze e join dziela d on e.id_dziela = d.id where e.wydawnictwo = "PWN" and d.rok_powstania < 1950; 
+    wypisz wszystkie informacje o dzielach oraz nazawe wydawnictwa egzemplarzy kazdego z tych dziel. wynik ogranicz do dziel, ktorych najstarszy egzemplarz zostal wydany w parzystym roku 
+        -select d.*, e.wydawnictwo from dziela d join egzemplarze e on d.id = e.id_dziela where d.id in ( select id_dziela from egzemplarze group by id_dziela having min(rok_wydania) % 2 = 0); 
+    wypisz imiona i adresy e-mail czytelnikow oraz date najwczesniejszego zamowienia zalozonego przez kazdego z nich. uwzgledni tez tych, ktorzy nigdy nic nie rezerwowali 
+        -select c.imie, c.email, min(z.data_zamowienia) as najwczesniejsze_zamowienie from czytelnicy c left join zamowienia z on c.id = z.id_czytelnika group by c.id, c.imie, c.email; 
+    wypisz wszystkie informacje o dzielach, ktorych egzemplarze byly rezerwowane zarowno w marcu, jak i w kwietniu 
+        - select distinctd d.* from dziela d join egzemplarze e on d.id = e.id_dziela where e.id in (select id_egzemplarza from rezerwacje where month(data_rezerwacji) = 3) and e.id in (select id_egzemplarza from rezerwacje where month(data_rezerwacji) = 4); 
+    
+Zadania 2 
+    wypisz tytly i kategorie dzieł, które maja więcej niz jednego autor: 
+        -select tytu, kategoria from dziaela where autor like '%,%' or autor like '% i %'; 
+    wypisz wszystkie informacje o rezerwacjach zlozonych rano 
+        -select * from rezerwacje where hour(data_rezerwacji) < 10; 
+    wypisz daty wypozyczenia egzemplarzy wydanych w latach parzystych; 
+        -select w.data_wypozyczenia from wypozyczenia w join egzemplarze e on w.id_egzemplarza = e.id where year(e.rok_wydania) % 2 = 0;
+    wypisz wszystkie informacje o czytelnikach, którzy zwrócili książkę więcej niż dzień po zamówieniu: 
+        -select distinct c.* from czytelnicy c join zamowienia z on c.id = z.id_czytelnika join wypozyczenia w on z.id_egzemplarza = w.id_egzemplarza where datediff(w.data_zwrotu, z.data_zamowienia) > 1; 
+    wypisz wydawnictwa egzemplarzy, ktore nigdy nie byly rezerwowane
+        -select e.wydawnictwo, e.rok_wydania from egzemplarze e where e.id not in(select distinct id_egzemplarza from rezerwacje) order by e.rok_wydania desc; 
+    wypisz liczbe rezerwacji czytelnikow z domena yahoo.com dla ksiazek wydanych po 2000: 
+        -select count(*) as liczba_rezerwacji from rezerwacje r join czytelnicy e on r.id_czytelnika = c.id join egzemplarze e on r.id_egzemplarza = e.id where c.email like '%@yahoo.com; and e.rok_wydania > 2000; 
+    wypisz liczbe egzemplarzy wydanych przez czarne, ktore były rezerwowane ale nie oddane: 
+        -select count(distinct e.id) as liczba_egzemplarzy from egzemplarze e join rezerwacje r on e.id = r.id_egzemplarza left join wypozyczenia w on e.id = w.id_egzemplarza where e.wydawnictwo = 'Czarne' and w.id is null; 
+    wypisz informacje o czytelnikach i najwczesniejsza date zwrotu, gdzie najpozniejsze wypozyczenie bylo w marcu: 
+        -select c.*, min(w.data_zwrotu) as najwczesniejsza_data_zwrotu from czytelnicy c join wypozyczenia w on c.id = w.id_czytelnika where month(w.data_wypozyczenia) = 3 group by c.id; 
+    wypisz informacje o egzemplarzach i najpozniejsza daate zamowienia; 
+        -select e.*, max(r.data_rezerwacji) as najpozniejsza_data_rezerwacji from egzemplarze e left join rezerwacje r on e.id = r.id_egzemplarze group by e.id; 
+    wypisz informacje o osobach z najwieksza liczba roznych wydawnictw w rezerwacjach 
+        -with ranking_wydawnictw as( select c.id, count(distinct e.wydawnictwo) as liczba_wydawnictw from czytelnicy c join rezerwacje r on c,id = r.id_czytelnika join egzemplarze e on r,id_egzemplarza = e.id group by c.id) select c.* from czytelnicy c join ranking_wydawnict r on c.id = r.id where r.liczba_wydawnictw = ( select max(liczba_wydwanict) from ranking_wydawnictw); 
